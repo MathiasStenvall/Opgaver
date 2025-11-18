@@ -52,11 +52,7 @@ public class PlayList {
     }
 
     public void removeGenre(Genre genre){
-        for (int i=0; i<playList.size(); i++){
-            if (playList.get(i).hasGenre(genre)){
-                playList.remove(playList.get(i));
-            }
-        }
+        playList.removeIf(playList -> playList.hasGenre(genre));
     }
 
 }

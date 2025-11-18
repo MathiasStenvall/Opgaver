@@ -4,18 +4,21 @@ import filmbase.data.Film;
 import filmbase.data.Genre;
 import filmbase.data.PlayList;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FilmBase {
     private List<Film> allFilms = new ArrayList<>();
+    HashSet<Genre> allGenres = new HashSet<>();
+
 
         public void start(){
             System.out.println("FilmBasen er startet");
             initFilm();
-            printList(allFilms);
+            // printList(allFilms);
             // testPlayList();
-            testFiltering();
+            // testFiltering();
+            countGenres();
+            genreHasFilms();
         }
 
         private void initFilm(){
@@ -57,7 +60,31 @@ public class FilmBase {
             playList.addFilm(allFilms.get(2));
             playList.addFilm(allFilms.get(3));
             printList(playList.getList());
-            playList.removeGenre(Genre.Crime);
+            playList.removeGenre(Genre.Biography);
             printList(playList.getList());
+        }
+
+        public void countGenres(){
+            for (Film f: allFilms){
+                allGenres.addAll(f.getGenres());
+            }
+            System.out.println(allGenres);
+        }
+
+        public void genreHasFilms(){
+            Map<Genre, Collection<Film>> genreFilms = new HashMap<>(Map.of());
+            for (Film f: allFilms){
+                for (Genre g: f.getGenres()){
+                    genreFilms.putIfAbsent(g, new HashSet<>());
+                    genreFilms.get(g).add(f);
+                }
+            }
+            for (Genre g: genreFilms.keySet()){
+                System.out.println("\nGenre: " + g);
+                System.out.println("Film: ");
+                for (Film f: genreFilms.get(g)){
+                    System.out.println(f);
+                }
+            }
         }
 }
