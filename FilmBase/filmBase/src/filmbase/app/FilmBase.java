@@ -1,8 +1,6 @@
 package filmbase.app;
 
-import filmbase.data.Film;
-import filmbase.data.Genre;
-import filmbase.data.PlayList;
+import filmbase.data.*;
 
 import java.util.*;
 
@@ -10,15 +8,20 @@ public class FilmBase {
     private List<Film> allFilms = new ArrayList<>();
     HashSet<Genre> allGenres = new HashSet<>();
 
-
         public void start(){
             System.out.println("FilmBasen er startet");
             initFilm();
             // printList(allFilms);
             // testPlayList();
             // testFiltering();
-            countGenres();
-            genreHasFilms();
+             countGenres();
+             genreHasFilms();
+            // sortAscendingYear();
+            // sortDescendingYear();
+            // sortAscendingTitle();
+            // sortDescendingTitle();
+            // printList(allFilms);
+
         }
 
         private void initFilm(){
@@ -87,4 +90,29 @@ public class FilmBase {
                 }
             }
         }
+
+    public List<Film> sortDescendingYear(){
+        allFilms.sort(new YearComparator().reversed());
+        System.out.println("Sorted by descending year:");
+        return allFilms;
+    }
+
+    public List<Film> sortAscendingYear(){
+        allFilms.sort(new YearComparator());
+        System.out.println("Sorted by ascending year:");
+        return allFilms;
+    }
+
+    public List<Film> sortAscendingTitle(){
+        allFilms.sort(new TitleComparator());
+        System.out.println("Sorted by ascending title:");
+        return allFilms;
+    }
+
+    public List<Film> sortDescendingTitle(){
+        allFilms.sort(new TitleComparator().reversed());
+        System.out.println("Sorted by descending title:");
+        return allFilms;
+    }
+
 }
